@@ -37,11 +37,7 @@
                 <button name="submit" type="submit" class="btn btn-primary rounded-pill mb-3 w-100">Sign In</button>
                 <p style="text-align: center;">Dont have an account? <a href="signup.php" style="color: black; font-weight: 500;">Sign Up</a></p>
               </form>  
-            <?php 
-            if (isset($error)) {
-              echo "<p style='color: red;'>$error</p>";
-            }
-            ?>
+         
           </div>
         </div>
       </div>
