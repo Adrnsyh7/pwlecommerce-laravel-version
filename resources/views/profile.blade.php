@@ -1,7 +1,8 @@
 @extends('master')
-
+@section('title')
+Profile
+@endsection
 @section('konten')
-
 
 <br>
 <br>
@@ -20,7 +21,9 @@
           <div class="tab-content w-100" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
             @foreach($user as $key => $row)
-                <form action="" method="POST">
+                <form action="{{route('updateProfile', $row->id)}}" method="POST">
+                  @csrf
+                  @method('PUT')
                   <fieldset disabled>
                   <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
@@ -63,19 +66,22 @@
                   </tr> 
                 </thead>
                 <tbody>
-
+                @foreach($order as $key => $row)
                   <tr>
                     <th scope="row"></th>
-                    <td> </td>
-                                <td> </td>
-                                <td> </td>
+                    <td>{{$row->order_id}} </td>
+                                <td>{{$row->order_date}} </td>
+                                <td> {{$row->order_total}} </td>
                             </tr>
-                       
                 </tbody>
+                
+                @endforeach
               </table>
             </div>
             <div class="tab-pane fade" id="v-pills-password" role="tabpanel" aria-labelledby="v-pills-password-tab" tabindex="0">
-              <form action="" method="POST">
+              <form action="{{route('updatePsswd')}}" method="POST">
+                @csrf
+                @method('PUT')
               <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" name="password1" id="password1" required />

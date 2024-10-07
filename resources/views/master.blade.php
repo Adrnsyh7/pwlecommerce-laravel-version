@@ -3,9 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home | Toko Roti Alta Bakery</title>
+  <title>@yield('title') | Toko Roti Alta Bakery</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </head>
 <body>
   <!-- Navbar -->
@@ -31,13 +35,16 @@
             <i class="fa-solid fa-user"></i> Account
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item fw-medium" href="">Profile</a></li>
+            @if (Auth::check())
+              <li><a class="dropdown-item fw-medium" href="{{route('profile')}}">Profile</a></li>
               @if (Auth::check() && Auth::user()->role == 'Admin')
-              <li><a class="dropdown-item fw-medium" href="dashboard">Dashboard</a></li>
+              <li><a class="dropdown-item fw-medium" href="{{route('dashboard')}}">Dashboard</a></li>
               @else
               @endif
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item fw-medium" href="{{route('actionlogout')}}">Logout</a></li>
+            @else
+            @endif
             </ul>
           </li>
         </ul>
@@ -63,6 +70,16 @@
     </ul>
   </footer>
   </div>
+  <script>
+    $(function() {
+      $('#datepicker').datepicker({
+        format: 'yyyy-mm-dd',
+        todayHighlight: true,
+        autoclose: true,
+        orientation: "top left"
+      });
+    });
+  </script>
 </body>
 <script src="https://kit.fontawesome.com/47dcae39d3.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

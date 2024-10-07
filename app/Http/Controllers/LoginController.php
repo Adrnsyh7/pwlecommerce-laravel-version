@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use Session;
 
 class LoginController extends Controller
@@ -25,6 +26,8 @@ class LoginController extends Controller
         ];
 
         if (Auth::Attempt($data)) {
+
+            User::where('username', $request->input('username'))->update(['last_login' => now()]);
             return redirect('/');
         }else{
             Session::flash('error', 'Username atau Password Salah');

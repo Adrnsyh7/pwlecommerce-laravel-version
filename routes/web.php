@@ -36,7 +36,12 @@ Route::group(['middleware' => ['auth', 'user']], function () {
 Route::post('addcart',[CartController::class, 'addcart'])->name('addcart');
 Route::post('update',[CartController::class, 'update'])->name('update');
 Route::get('cart', [CartController::class, 'cart'])->name('cart');
-Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::post('actioncheckout', [CartController::class, 'checkout'])->name('checkout');
+Route::get('checkout', [CartController::class, 'showCheckout'])->name('showCheckout');
+Route::get('profile', [ProfileController::class, 'index'])->name('profile');
+Route::put('profile/{id}', [ProfileController::class, 'update'])->name('updateProfile');
+Route::put('updatePassword', [ProfileController::class, 'updatePassword'])->name('updatePsswd');
+
 Route::get('actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout')->middleware('auth');
 });
 
@@ -47,10 +52,12 @@ Route::post('register/action', [RegisterController::class, 'actionregister'])->n
 
 Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::resource('/dashboard', \App\Http\Controllers\DashboardController::class);
-    // Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('dashboard/action', [DashboardController::class, 'actionstore'])->name('actionstore');
     Route::put('dashboard/{id}', [DashboardController::class, 'actionUpdate'])->name('actionUpdate');
     Route::delete('dashboard/{id}', [DashboardController::class, 'actionDelete'])->name('actionDelete');
+    Route::post('dashboard/orderstatus', [DashboardController::class, 'updateStatus'])->name('updateStatus');
+
 });
 
 

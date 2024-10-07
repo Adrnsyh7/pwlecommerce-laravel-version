@@ -8,13 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    
+
+    protected $table = 'products';
+    // protected $primaryKey = 'item_id';
+
     protected $fillable = [
-      'id',
+      'item_id',
       'gambar',
       'nama',
       'desc_produk',
       'harga',
       'gambar'
     ];
+
+    public function orderDetail()
+    {
+        return $this->hasMany(OrderDetail::class, 'item_id','item_id');
+    }
 }

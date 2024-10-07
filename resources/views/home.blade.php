@@ -1,4 +1,7 @@
 @extends('master')
+@section('title')
+Home
+@endsection
 @section('konten')
 
   <!-- Slideshow  -->
@@ -45,7 +48,7 @@
           <div class="card-body">
             <h5 class="card-title">{{$row->nama}}</h5>
             <p class="card-text">{{$row->desc_produk}}</p>
-            <a href="detail/{{$row->id}}" class="btn btn-primary">Show Product</a>
+            <a href="detail/{{$row->item_id}}" class="btn btn-primary">Show Product</a>
           </div>
          
         </div>

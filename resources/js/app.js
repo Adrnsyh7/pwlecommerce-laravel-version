@@ -63,3 +63,11 @@ function showPassword() {
     document.getElementById('quantity').stepDown();
   }
   
+  $(function() {
+    $('#datepicker').datepicker({
+      format: 'yyyy-mm-dd',
+      todayHighlight: true,
+      autoclose: true,
+      orientation: "top left"
+    });
+  });

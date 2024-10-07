@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 //import Model "Post
 use App\Models\Product;
+use App\Models\Order;
 
 use DB;
 //return type redirectResponse
@@ -22,7 +23,27 @@ class DashboardController extends Controller
     {
         $produk = DB::table('products')->get();
         $user = DB::table('users')->get();
-        return view('dashboard', ['produk' => $produk], ['user' => $user]);
+        $order = Order::with('orderDetail.menuItem')->get();
+        // dd($order->toArray());
+        return view('dashboard', compact('order','user', 'produk'));
+    }
+
+    public function updateStatus(Request $request) {
+        $orderId = $request->input('order_id');
+        $newStatus = $request->input('status');
+
+        $order = Order::where('order_id', $orderId)->first();
+
+        if ($order) {
+            // Update status order
+            Order::where('order_id', $orderId)->update(['order_status' => $newStatus]);
+            // $order->order_status = $newStatus;
+            // $order->save();
+            return response()->json(['success' => true, 'message' => 'Status berhasil diperbarui.']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Order tidak ditemukan.'], 404);
+        }
+
     }
 
     public function actionstore(Request $request): RedirectResponse
@@ -45,7 +66,7 @@ class DashboardController extends Controller
 
         //create post
         Product::create([
-            'id' => $id_produk,
+            'item_id' => $id_produk,
             'gambar'     => $gambarData,
             'nama'     => $request->name,
             'desc_produk' => $request->desc,
@@ -69,16 +90,12 @@ class DashboardController extends Controller
              $this->validate($request, [
             'gambarEdit'  => 'required|image|mimes:jpeg,jpg,png|max:2048'
              ]);
-            Product::where('id', $id)
+            Product::where('item_id', $id)
             ->update(['nama' => $request->nameEdit, 'desc_produk' => $request->descEdit, 'harga' => $request->priceEdit, 'gambar' => $gambarData]);
         } else {
-            Product::where('id', $id)
+            Product::where('item_id', $id)
             ->update(['nama' => $request->nameEdit, 'desc_produk' => $request->descEdit, 'harga' => $request->priceEdit]);
         }
-
-        // Product::where('id', $id)
-        // ->update(['nama' => $request->nameEdit]);
-
 
         return redirect()->route('dashboard.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
@@ -86,5 +103,16 @@ class DashboardController extends Controller
     public function actionDelete($id){
         Product::destroy($id);
         return redirect()->route('dashboard.index')->with(['success' => 'Data Berhasil Diubah!']);
+    }
+
+    public function updatePasswordAdmin(Request $request) {
+        $id = Auth::user()->id;
+        $password1 = $request->password1;
+        $password2 = $request->password2;
+        if($password1 === $password2) {
+            User::where('id', $id)
+            ->update(['password' => Hash::make($request->password2)]);
+            return redirect()->route('profile')->with(['success' => 'Data Berhasil Disimpan!']);
+        }
     }
 }   
