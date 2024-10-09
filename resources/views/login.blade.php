@@ -35,7 +35,7 @@
                 </div>
                 <p class="mb-3" style="cursor:pointer;" onclick="showPassword()"><span class="field-icon fa fa-fw fa-eye toggle-password"></span> Show Password</p>
                 <button name="submit" type="submit" class="btn btn-primary rounded-pill mb-3 w-100">Sign In</button>
-                <p style="text-align: center;">Dont have an account? <a href="signup.php" style="color: black; font-weight: 500;">Sign Up</a></p>
+                <p style="text-align: center;">Dont have an account? <a href="{{route('register')}}" style="color: black; font-weight: 500;">Sign Up</a></p>
               </form>  
          
           </div>
