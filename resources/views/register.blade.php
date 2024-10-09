@@ -42,14 +42,9 @@
                 <input type="password" class="form-control rounded-pill" name="password" id="password" ' required />
                 <span id="errorSpan"></span>
               </div>
-              <div class="mb-2">
-                <label for="role" class="form-label">Role</label>
-                <input type="text" name="role" class="form-control" value="User" readonly>
-                <span id="errorSpan"></span>
-              </div>
               <p class="mb-3" style="cursor:pointer;" onclick="showPassword()"><span class="field-icon fa fa-fw fa-eye toggle-password"></span> Show Password</p>
               <button name="register" type="submit" disabled id="form-submit" class="btn btn-primary mb-3 rounded-pill w-100">Sign Up</button>
-              <p style="text-align: center;">Dont have an account? <a href="login.php" style="color: black; font-weight: 500;">Sign In</a></p>
+              <p style="text-align: center;">Dont have an account? <a href="{{route('login')}}" style="color: black; font-weight: 500;">Sign In</a></p>
             </form>  
         </div>
       </div>

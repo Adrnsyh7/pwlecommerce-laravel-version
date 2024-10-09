@@ -16,12 +16,14 @@ class RegisterController extends Controller
     
     public function actionregister(Request $request)
     {
+        $role = 'User';
+
         $user = User::create([
             'name' => $request->name,
             'username' => $request->username,
             'password' => Hash::make($request->password),
             'email' => $request->email,
-            'role' => $request->role,
+            'role' => $role,
             'active' => 1
         ]);
 
