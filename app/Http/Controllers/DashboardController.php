@@ -53,12 +53,14 @@ class DashboardController extends Controller
             'gambar'  => 'required|image|mimes:jpeg,jpg,png|max:2048',
             'name' => 'required|min:5',
             'desc'=> 'required|min:10',
+            'stok' => 'required|min:1'
         ]);
 
         //upload image
         $image = base64_encode(file_get_contents($request->file('gambar')));
         $file = $request->file('gambar')->getMimeType();
         $gambarData = 'data:' . $file . ';charset=utf-8' . ';base64,' . $image;
+        $stok = $request->stok;
 
         //randID
         $randangka = rand(100,999);
@@ -70,11 +72,12 @@ class DashboardController extends Controller
             'gambar'     => $gambarData,
             'nama'     => $request->name,
             'desc_produk' => $request->desc,
-            'harga' => $request->price
+            'harga' => $request->price,
+            'stok' => $stok
         ]);
 
         //redirect to index
-        return redirect()->route('dashboard.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        return redirect()->route('dashboard')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
     public function actionUpdate(Request $request, $id) : RedirectResponse{
@@ -101,7 +104,8 @@ class DashboardController extends Controller
     }
 
     public function actionDelete($id){
-        Product::destroy($id);
+        $product = Product::find($id);
+        $product->delete();
         return redirect()->route('dashboard.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
 

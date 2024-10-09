@@ -18,7 +18,8 @@ class Product extends Model
       'nama',
       'desc_produk',
       'harga',
-      'gambar'
+      'gambar',
+      'stok',
     ];
 
     public function orderDetail()

@@ -94,6 +94,11 @@
                                             <label for="price" class="form-label">Price</label>
                                             <input type="text" class="form-control" id="price" name="price" required>
                                           </div>
+
+                                          <div class="mb-3">
+                                            <label for="stok" class="form-label">Stok</label>
+                                            <input type="number" class="form-control" id="stok" name="stok" required>
+                                          </div>
                                         </div>
                                 <div class="modal-footer">
                                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
@@ -131,7 +136,9 @@
                                     <span class="description text-truncate">{{$row->desc_produk}}</span>
                                 </td>
                                 <td>{{$row->harga}}</td>
-                                <td></td>
+                                <td>{{$row->stok}}
+                                <button type="button"  data-bs-toggle="modal" data-bs-target="#editProduct{{$row->item_id}}" href="{{$row->item_id}}/edit"><i class="fa-solid fa-pen">
+                                </td>
                                 <td>
                                     <!-- Edit Product -->
                                     <button type="button" class="btn btn-warning text-black" data-bs-toggle="modal" data-bs-target="#editProduct{{$row->item_id}}" href="{{$row->item_id}}/edit"><i class="fa-solid fa-pen"></i></button>
